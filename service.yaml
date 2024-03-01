@@ -7,8 +7,6 @@ spec:
   selector:
     app: webhook-app
   ports:
-  - name: http
-    protocol: TCP
-    port: 80
+  - port: 80
     targetPort: 5000
-  type: LoadBalancer
+  type: NodePort

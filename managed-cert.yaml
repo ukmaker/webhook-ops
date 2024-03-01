@@ -1,0 +1,9 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: webhook-certificate
+  namespace: webhook
+spec:
+  domains:
+    - webhook.ukmaker.co.uk
+
