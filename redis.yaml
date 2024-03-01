@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  namespace: webhook
+  labels:
+    app: redis
+spec:
+  containers:
+  - name: redis
+    image: redis:latest
+    command:
+      - redis-server
+      - "/opt/redis.conf"
+    ports:
+    - containerPort: 6379
+    volumeMounts:
+    - mountPath: /opt
+      name: config
+  volumes:
+    - name: config
+      configMap:
+        name: redis-config

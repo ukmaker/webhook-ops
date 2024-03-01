@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhook-app-deployment
+  namespace: webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webhook-app
+  template:
+    metadata:
+      labels:
+        app: webhook-app
+    spec:
+      containers:
+      - name: webhook-app-container
+        image: europe-west1-docker.pkg.dev/modified-petal-219616/komodor/webhook-app:0.5.0
+        env:
+          - name: REDIS_HOST
+            valueFrom: 
+              secretKeyRef:
+                name: redis
+                key: service
+          - name: REDIS_PORT
+            valueFrom: 
+              secretKeyRef:
+                name: redis
+                key: port
+          - name: REDIS_PASSWORD
+            valueFrom: 
+              secretKeyRef:
+                name: redis
+                key: password
+        ports:
+        - containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 10
