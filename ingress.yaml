@@ -4,9 +4,10 @@ metadata:
   name: webhook-ingress
   namespace: webhook
   annotations:
+    kubernetes.io/ingress.global-static-ip-name: webhook-ip-name
     networking.gke.io/managed-certificates: webhook-certificate
+    ingressClassName: "gce"
 spec:
-  ingressClassName: "gce"
   defaultBackend:
     service:
       name: webhook-service

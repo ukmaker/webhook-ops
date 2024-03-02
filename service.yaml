@@ -6,7 +6,8 @@ metadata:
 spec:
   selector:
     app: webhook-app
-  ports:
-  - port: 80
-    targetPort: 5000
   type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
