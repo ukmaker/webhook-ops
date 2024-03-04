@@ -8,6 +8,6 @@ spec:
     app: webhook-app
   type: NodePort
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 5000
+  - protocol: TCP
+    port: 80
+    targetPort: 5000

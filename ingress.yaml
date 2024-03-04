@@ -6,10 +6,16 @@ metadata:
   annotations:
     kubernetes.io/ingress.global-static-ip-name: webhook-ip-name
     networking.gke.io/managed-certificates: webhook-certificate
-    ingressClassName: "gce"
+    kubernetes.io/ingress.class: "gce"
 spec:
-  defaultBackend:
-    service:
-      name: webhook-service
-      port:
-        number: 80
+  rules:
+  - host: "webhook.ukmaker.co.uk"
+    http:
+      paths:
+      - pathType: ImplementationSpecific
+        path: "/*"
+        backend:
+          service:
+            name: webhook-service
+            port:
+              number: 80
